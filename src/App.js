@@ -1,23 +1,40 @@
-import logo from './logo.svg';
+import { useState } from 'react';
 import './App.css';
+import Button from './components/Button';
 
 function App() {
+  const [counter, setCounter] = useState(0);
+
+  const plus = () => {
+    setCounter(counter + 1);
+  }
+
+  const minus = () => {
+    if(counter > 0) {
+      setCounter(counter - 1)
+    } else (
+      alert('Ниже нуля нельзя!')
+    )
+  }
+
+  const reset = () => {
+    setCounter(0);
+  }
+
+  const handleChange = (event) => {
+    setCounter(Number(event.target.value));
+  }
+
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <Button handleClick={minus}>
+        -
+      </Button>
+      <input value={counter} onChange={handleChange}/>
+      <Button isRed handleClick={plus}>
+        +
+      </Button>
+      <Button isRed={false} handleClick={reset}>Reset</Button>
     </div>
   );
 }
